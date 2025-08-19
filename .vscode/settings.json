@@ -1,0 +1,7 @@
+{
+    "python.testing.pytestArgs": [
+        "group_files_archiver"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
