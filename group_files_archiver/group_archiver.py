@@ -15,7 +15,7 @@ from zipfile import ZIP_DEFLATED, BadZipfile, ZipFile
 
 from tqdm import tqdm
 
-from group_files_archiver.config import ARCHIVER_ARCHIVE_FOLDER, ARCHIVER_LOCK_FOLDER
+from config import ARCHIVER_ARCHIVE_FOLDER, ARCHIVER_LOCK_FOLDER
 
 logger = logging.getLogger('group-files-archiver')
 
