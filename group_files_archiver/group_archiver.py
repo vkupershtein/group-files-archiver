@@ -76,7 +76,7 @@ class GroupArchiver:
                     str_input_paths = ','.join([str(path) for path in self.input_paths])
                     logger.warning(f'No files found for user {group_user.name} and input file paths {str_input_paths}. Skip')
                     return
-                archive_name = get_archive_filename(group_user.group)
+                archive_name = get_archive_filename(group_user)
                 target_archive = self.archive_folder.joinpath(archive_name)
                 
                 logger.info(f'Archiving files for user {group_user.name}')
@@ -144,10 +144,10 @@ def find_user_files(user_id: int, folders: list[Path]) -> list[Path]:
                     user_files.append(path)                
     return user_files
 
-def get_archive_filename(group_name) -> str:
+def get_archive_filename(group_user: GroupUser) -> str:
     """Get archive filename from group name and time"""    
     now = datetime.now().strftime(format='%Y%m%d_%H%M%S')    
-    return f'{group_name}_{now}.zip'
+    return f'{group_user.name}_{group_user.group}_{now}.zip'
 
 def archive_files(filepaths: list[Path], target_archive: Path):
     """Archive filepaths to a target location with certain archive name"""    
