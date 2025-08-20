@@ -13,3 +13,6 @@ dev = [
     "jupyterlab>=4.4.6",
     "pytest>=8.4.1",
 ]
+
+[project.scripts]
+group-files-archiver = "group_files_archiver.main:main"
