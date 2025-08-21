@@ -6,7 +6,7 @@ The program is designed to be robust against multiple invocations and logs its o
 
 ---
 
-## 🔧 Installation
+## Installation
 
 ### From Debian source package
 
@@ -34,7 +34,7 @@ The program is designed to be robust against multiple invocations and logs its o
 
 ---
 
-## 📂 Files and Directories
+## Files and Directories
 
 After installation, the package provides:
 
@@ -51,7 +51,7 @@ After installation, the package provides:
 
 ---
 
-## 🚀 Usage
+## Usage
 
 Run the tool with the name of a Linux group:
 
@@ -88,7 +88,7 @@ sudo group-files-archiver developers -c \
 
 ---
 
-## 📝 Logging
+## Logging
 
 All actions and errors are logged to:
 
@@ -98,7 +98,7 @@ All actions and errors are logged to:
 
 ---
 
-## ⚠️ Notes
+## Notes
 
 * Requires Python **≥3.8**.
 * Root privileges are necessary
