@@ -56,7 +56,7 @@ After installation, the package provides:
 Run the tool with the name of a Linux group:
 
 ```bash
-group-files-archiver <groupname> [options]
+sudo group-files-archiver <groupname> [options]
 ```
 
 ### Options
