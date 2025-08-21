@@ -3,9 +3,9 @@ name = "group-files-archiver"
 version = "0.1.0"
 description = "Tool to archive files of user group members"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.8"
 dependencies = [
-    "tqdm>=4.67.1",
+    "tqdm>=4.30.0",
 ]
 
 [dependency-groups]
@@ -13,6 +13,3 @@ dev = [
     "jupyterlab>=4.4.6",
     "pytest>=8.4.1",
 ]
-
-[project.scripts]
-group-files-archiver = "group_files_archiver.main:main"

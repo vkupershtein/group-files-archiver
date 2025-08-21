@@ -1,14 +1,14 @@
 Source: group-files-archiver
 Section: utils
 Priority: optional
-Maintainer: Your Name <you@example.com>
-Build-Depends: debhelper-compat (= 13), dh-python, pybuild-plugin-pyproject, python3-all (>= 3.12)
-Standards-Version: 4.6.2
+Maintainer: Vladimir Kupershtein <vladkupershtein@gmail.com>
+Build-Depends: debhelper (>= 11), dh-python, python3 (>= 3.8), python3-tqdm, python3-pytest
+Standards-Version: 4.5.0
 Rules-Requires-Root: no
-Homepage: https://github.com/you/group-files-archiver
+Homepage: https://github.com/vkupershtein/group-files-archiver
 
 Package: group-files-archiver
 Architecture: all
-Depends: ${misc:Depends}, ${python3:Depends}, python3 (>= 3.12~), python3-tqdm
+Depends: ${misc:Depends}, ${python3:Depends}, python3 (>= 3.8~), python3-tqdm
 Description: Tool to archive files of user group members
  Archives files owned by members of a given Linux group, with logging and concurrency control.

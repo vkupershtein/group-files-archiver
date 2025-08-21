@@ -8,14 +8,15 @@ import grp
 import logging
 from dataclasses import dataclass, field
 from enum import Enum
+import os
 from pathlib import Path
 import pwd
-from typing import ClassVar
+from typing import ClassVar, List
 from zipfile import ZIP_DEFLATED, BadZipfile, ZipFile
 
 from tqdm import tqdm
 
-from config import ARCHIVER_ARCHIVE_FOLDER, ARCHIVER_LOCK_FOLDER
+from .config import ARCHIVER_ARCHIVE_FOLDER, ARCHIVER_LOCK_FOLDER
 
 logger = logging.getLogger('group-files-archiver')
 
@@ -40,14 +41,14 @@ class GroupUser:
 class MemberGroup:
     """Linux group"""
     name: str
-    members: list[str]
+    members: List[str]
 
 
 @dataclass
 class GroupArchiver:
     """Class to archive group files"""
     archive_folder: Path = field(default=Path(ARCHIVER_ARCHIVE_FOLDER))
-    input_paths: list[Path] = field(default_factory=lambda: [Path('/home')])    
+    input_paths: List[Path] = field(default_factory=lambda: [Path('/home')])    
     move_mode: MoveMode = field(default=MoveMode.MOVE)
     lock_folder: ClassVar[Path] = Path(ARCHIVER_LOCK_FOLDER)
 
@@ -122,7 +123,7 @@ def get_group(group_name: str) -> MemberGroup:
     except KeyError as ex:      
         raise ArchiverException(f'Member group {group_name} not found in the group database') from ex    
 
-def get_group_users(group: MemberGroup) -> list[GroupUser]:
+def get_group_users(group: MemberGroup) -> List[GroupUser]:
     """Get users of the member group"""  
     user_ids = []    
     for user_name in [group.name, *group.members]:
@@ -133,23 +134,23 @@ def get_group_users(group: MemberGroup) -> list[GroupUser]:
         raise ArchiverException(f'No members found for the group {group.members} in the user database')
     return user_ids
 
-def find_user_files(user_id: int, folders: list[Path]) -> list[Path]:
+def find_user_files(user_id: int, folders: List[Path]) -> List[Path]:
     """Find files of the user starting from specified folders"""
     user_files = []
     for folder in folders: 
-        for root, _, files in folder.walk():
+        for root, _, files in os.walk(str(folder)):
             for file in files:
-                path = root.joinpath(file)
+                path = Path(os.path.join(root, file))
                 if path.exists() and path.stat().st_uid == user_id:
                     user_files.append(path)                
     return user_files
 
 def get_archive_filename(group_user: GroupUser) -> str:
     """Get archive filename from group name and time"""    
-    now = datetime.now().strftime(format='%Y%m%d_%H%M%S')    
+    now = datetime.now().strftime('%Y%m%d_%H%M%S')    
     return f'{group_user.name}_{group_user.group}_{now}.zip'
 
-def archive_files(filepaths: list[Path], target_archive: Path):
+def archive_files(filepaths: List[Path], target_archive: Path):
     """Archive filepaths to a target location with certain archive name"""    
     with ZipFile(target_archive, 'w', ZIP_DEFLATED) as zip_archive:
         for filepath in tqdm(filepaths):
@@ -158,19 +159,19 @@ def archive_files(filepaths: list[Path], target_archive: Path):
             except PermissionError:
                 logger.error(f'{filepath} can not be archived. Permission denied')
 
-def exclude_subpaths(paths: list[Path]):
+def exclude_subpaths(paths: List[Path]):
     """Exclude subpaths in-place"""
     i = 0    
     while i < len(paths):
         path = paths[i]
         for compare_path in paths:
-            if path != compare_path and path.is_relative_to(compare_path):
+            if path != compare_path and compare_path in path.parents:
                 paths.pop(i)
                 break
         else:
             i += 1
 
-def check_archive(zip_filepath: Path, filepaths: list[Path]) -> bool:
+def check_archive(zip_filepath: Path, filepaths: List[Path]) -> bool:
     try:
         zfile = ZipFile(zip_filepath)
     except BadZipfile as ex:
@@ -190,7 +191,7 @@ def check_archive(zip_filepath: Path, filepaths: list[Path]) -> bool:
         return False     
     return True
 
-def remove_files(filepaths: list[Path]):
+def remove_files(filepaths: List[Path]):
     """Remove files and folders if they are empty"""
     parent_folders = get_parent_folders(filepaths)    
     for filepath in filepaths:  # First remove files
@@ -203,7 +204,7 @@ def remove_files(filepaths: list[Path]):
         if len(list(folder.iterdir())) == 0:
             folder.rmdir()
 
-def get_parent_folders(filepaths: list[Path]):
+def get_parent_folders(filepaths: List[Path]):
     """Get parent folders"""
     folders = set()    
     for filepath in filepaths:

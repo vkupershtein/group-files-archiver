@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 Group files archiver entry point
 """
@@ -5,8 +7,8 @@ import logging
 from pathlib import Path
 from argparse import ArgumentParser
 
-from group_archiver import ArchiverException, GroupArchiver, MoveMode
-from config import (ARCHIVER_ARCHIVE_FOLDER, ARCHIVER_LOG_PATH, ARCHIVER_LOCK_FOLDER)
+from group_files_archiver.group_archiver import ArchiverException, GroupArchiver, MoveMode
+from group_files_archiver.config import (ARCHIVER_ARCHIVE_FOLDER, ARCHIVER_LOG_PATH, ARCHIVER_LOCK_FOLDER)
 
 def ensure_paths():
     """Ensure that paths to archive, log and lock folders exist"""

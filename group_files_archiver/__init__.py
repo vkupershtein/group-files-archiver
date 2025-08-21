@@ -1,5 +1,3 @@
-"""Test module initialization"""
+import os, sys
 
-import sys
-sys.path.append('.')
-sys.path.append('./group_files_archiver')
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
