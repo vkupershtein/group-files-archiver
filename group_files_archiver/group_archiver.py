@@ -11,7 +11,7 @@ from enum import Enum
 import os
 from pathlib import Path
 import pwd
-from typing import List
+from typing import List, Set
 from zipfile import ZIP_DEFLATED, BadZipfile, ZipFile
 
 from tqdm import tqdm
@@ -202,9 +202,9 @@ def remove_files(filepaths: List[Path]):
         if len(list(folder.iterdir())) == 0:
             folder.rmdir()
 
-def get_parent_folders(filepaths: List[Path]):
+def get_parent_folders(filepaths: List[Path]) -> List[Path]:
     """Get parent folders"""
-    folders = set()    
+    folders: Set[Path] = set()    
     for filepath in filepaths:
         folders.update(filepath.parents)
     return list(folders)        
