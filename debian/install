@@ -1,1 +1,3 @@
-main.py usr/bin/group-files-archiver
+main.py /usr/lib/group-files-archiver
+group_files_archiver/* /usr/lib/python3/dist-packages/group_files_archiver/
+group-files-archiver /usr/bin

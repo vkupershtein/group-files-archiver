@@ -1,8 +1,0 @@
-/var/log/group-files-archiver/group-files-archiver.log {
-    daily
-    rotate 7
-    compress
-    missingok
-    notifempty
-    create 0640 root root
-}

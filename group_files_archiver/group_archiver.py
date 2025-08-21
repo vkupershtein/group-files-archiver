@@ -16,8 +16,6 @@ from zipfile import ZIP_DEFLATED, BadZipfile, ZipFile
 
 from tqdm import tqdm
 
-from .config import ARCHIVER_ARCHIVE_FOLDER, ARCHIVER_LOCK_FOLDER
-
 logger = logging.getLogger('group-files-archiver')
 
 class ArchiverException(Exception):
@@ -47,10 +45,10 @@ class MemberGroup:
 @dataclass
 class GroupArchiver:
     """Class to archive group files"""
-    archive_folder: Path = field(default=Path(ARCHIVER_ARCHIVE_FOLDER))
+    archive_folder: Path
+    lock_folder: Path
     input_paths: List[Path] = field(default_factory=lambda: [Path('/home')])    
-    move_mode: MoveMode = field(default=MoveMode.MOVE)
-    lock_folder: ClassVar[Path] = Path(ARCHIVER_LOCK_FOLDER)
+    move_mode: MoveMode = field(default=MoveMode.MOVE)    
 
     def __post_init__(self):
         if self.archive_folder.is_file():

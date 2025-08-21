@@ -1,4 +1,0 @@
-# Environment defaults for group-files-archiver
-ARCHIVER_LOG_PATH=/var/log/group-files-archiver/group-files-archiver.log
-ARCHIVER_ARCHIVE_FOLDER=/var/lib/group-files-archiver/archives
-ARCHIVER_LOCK_FOLDER=/var/lib/group-files-archiver/locks

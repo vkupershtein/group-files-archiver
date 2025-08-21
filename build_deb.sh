@@ -11,13 +11,14 @@ rm -rf ../${SRC_DIR} ../${PKG_NAME}_*.deb ../${PKG_NAME}_*.orig.tar.gz
 # Step 1: Prepare source dir with correct Debian naming
 cp -r . ../${SRC_DIR}
 cd ../${SRC_DIR}
+cp debian/group-files-archiver.wrapper group-files-archiver
 
 # Step 2: Create tarball
 tar --exclude=debian -czf ../${PKG_NAME}_${PKG_VERSION}.orig.tar.gz .
 
 # Step 3: Install required packaging tools
 sudo apt-get update
-sudo apt-get install -y build-essential devscripts debhelper python3-all python3-setuptools
+sudo apt-get install -y build-essential devscripts debhelper dh-python python3-all python3-tqdm
 
 # Step 4: Build package
 debuild -us -uc

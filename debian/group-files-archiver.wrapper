@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export ARCHIVER_LOG_PATH=/var/log/group-files-archiver/group-files-archiver.log
+export ARCHIVER_ARCHIVE_FOLDER=/var/lib/group-files-archiver/archives
+export ARCHIVER_LOCK_FOLDER=/var/lib/group-files-archiver/locks
+
+exec /usr/lib/group-files-archiver/main.py "$@"
