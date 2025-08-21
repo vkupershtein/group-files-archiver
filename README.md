@@ -13,7 +13,7 @@ The program is designed to be robust against multiple invocations and logs its o
 1. Clone git repository:
 
    ```bash
-  git clone https://github.com/vkupershtein/group-files-archiver.git
+   git clone https://github.com/vkupershtein/group-files-archiver.git
    ```
 
 2. Build the `.deb` package from source with script:
