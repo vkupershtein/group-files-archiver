@@ -11,7 +11,7 @@ from enum import Enum
 import os
 from pathlib import Path
 import pwd
-from typing import ClassVar, List
+from typing import List
 from zipfile import ZIP_DEFLATED, BadZipfile, ZipFile
 
 from tqdm import tqdm
